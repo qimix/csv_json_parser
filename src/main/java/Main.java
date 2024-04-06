@@ -22,16 +22,14 @@ public class Main {
         columnPositionMappingStrategy.setColumnMapping(columnMapping);
 
         try(CSVReader csvReader = new CSVReader(new FileReader(fileName))){
-          // List<String> csvRecord;
-          // while((csvRecord = csvReader.readNext()) != null){
-               System.out.println(Arrays.toString(csvReader.readNext()));
-          // }
+           String[] csvRecord;
+           while((csvRecord = csvReader.readNext()) != null){
+               System.out.println(Arrays.toString(csvRecord));
+           }
         }catch (IOException | CsvValidationException ex) {
             System.out.println(ex.getMessage());
         }
 
         return employees;
     }
-
-
 }
