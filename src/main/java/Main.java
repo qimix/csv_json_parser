@@ -2,11 +2,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.opencsv.CSVReader;
-import com.opencsv.bean.*;
-import com.opencsv.exceptions.CsvDataTypeMismatchException;
-import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import com.opencsv.bean.ColumnPositionMappingStrategy;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 
-import java.io.*;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,18 +44,19 @@ public class Main {
         return staff;
     }
 
-    protected static String listToJson(List<Employee> staff){
+    protected static String listToJson(List<Employee> staff) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = new Gson();
-        Type listType = new TypeToken<List<Employee>>() {}.getType();
+        Type listType = new TypeToken<List<Employee>>() {
+        }.getType();
         String json = gson.toJson(staff, listType);
         return json;
     }
 
-    protected static void writeString(String json, String jsonFileName){
-        try(Writer writer = new FileWriter(jsonFileName)){
+    protected static void writeString(String json, String jsonFileName) {
+        try (Writer writer = new FileWriter(jsonFileName)) {
             writer.write(json.toCharArray());
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
